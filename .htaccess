@@ -1,0 +1,36 @@
+# gymacro.ru — Beget: Apache + Phusion Passenger (Node / Next.js standalone)
+# После заливки: touch tmp/restart.txt — перезапуск Passenger (не запускать второй раз node вручную)
+
+RewriteEngine On
+
+# Папка CMS — не отдавать в Next
+RewriteRule ^cms($|/) - [L]
+
+# WordPress — не отдавать в Next
+RewriteCond %{REQUEST_URI} ^/wp-admin
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} ^/wp-login\.php
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} ^/wp-json
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} ^/wp-content
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} ^/wp-includes
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} ^/xmlrpc\.php
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} \.php$
+RewriteRule ^ - [L]
+
+# Passenger — без PassengerEnvVar (на Beget в .htaccess часто даёт 500)
+PassengerNodejs /home/m/mantoos7/mantoos7.beget.tech/public_html/node
+PassengerAppRoot /home/m/mantoos7/mantoos7.beget.tech/public_html
+PassengerFriendlyErrorPages on
+PassengerAppType node
+PassengerStartupFile server.js
