@@ -22,18 +22,18 @@ export function rewriteStaleTelegramUrls(html: string): string {
 export function sanitizePublicPageHtml(html: string): string {
   let out = rewriteStaleTelegramUrls(html);
 
-  const emailLink = `<a href="mailto:${SITE_EDITORIAL_EMAIL}">${SITE_EDITORIAL_EMAIL}</a>`;
   out = out.replace(
     REQUISITES_PLACEHOLDER,
-    `Связаться с редакцией можно по электронной почте: ${emailLink}.`,
+    `Связаться с редакцией можно по электронной почте: ${SITE_EDITORIAL_EMAIL}.`,
   );
   out = out.replace(/\[при необходимости заполните\]/gi, "");
 
   const emailRe = new RegExp(escapeRegExp(SITE_EDITORIAL_EMAIL), "gi");
   out = out.replace(emailRe, (match, offset: number, full: string) => {
-    const before = full.slice(Math.max(0, offset - 32), offset);
+    const before = full.slice(Math.max(0, offset - 80), offset);
     if (/mailto:\s*$/i.test(before)) return match;
     if (/href\s*=\s*["'][^"']*$/i.test(before)) return match;
+    if (/<a\b[^>]*href\s*=\s*["']mailto:[^"']+["'][^>]*>\s*$/i.test(before)) return match;
     return `<a href="mailto:${SITE_EDITORIAL_EMAIL}">${SITE_EDITORIAL_EMAIL}</a>`;
   });
 
