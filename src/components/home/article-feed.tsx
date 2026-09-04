@@ -13,7 +13,7 @@ function formatDate(iso: string) {
 export function ArticleFeed({ articles }: { articles: Article[] }) {
   if (!articles.length) {
     return (
-      <section id="feed" className="scroll-mt-24 px-4 py-10 md:py-16">
+      <section id="feed" className="scroll-mt-28 px-4 py-10 md:py-16">
         <div className="mx-auto max-w-6xl text-center">
           <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-900 md:text-3xl">
             Материалы
@@ -27,7 +27,7 @@ export function ArticleFeed({ articles }: { articles: Article[] }) {
   }
 
   return (
-    <section id="feed" className="scroll-mt-24 px-4 py-10 md:py-16">
+    <section id="feed" className="scroll-mt-28 px-4 py-10 md:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-900 md:text-3xl">

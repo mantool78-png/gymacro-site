@@ -3,14 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter, SiteHeader } from "@/components/home";
+import { RelatedPosts } from "@/components/posts/related-posts";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { disciplineCardBadge } from "@/lib/mock-data";
-import { IMAGE_FEATURE_16_9 } from "@/lib/image-dimensions";
+import { rewriteStaleTelegramUrls } from "@/lib/public-html";
 import {
   decodeHtmlEntities,
   estimateReadMinutes,
   getPostBySlug,
   getPostCategoryTerms,
+  getRelatedPosts,
   mapWpCategoriesToDiscipline,
   stripHtml,
 } from "@/lib/wp";
@@ -63,7 +65,8 @@ export default async function PostPage({ params }: Props) {
   }).format(new Date(post.date));
 
   const featured = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
-  const html = stripUnsafeFromHtml(post.content?.rendered ?? "");
+  const html = rewriteStaleTelegramUrls(stripUnsafeFromHtml(post.content?.rendered ?? ""));
+  const related = await getRelatedPosts(post, 3);
 
   return (
     <>
@@ -117,6 +120,7 @@ export default async function PostPage({ params }: Props) {
             dangerouslySetInnerHTML={{ __html: html }}
           />
 
+          <RelatedPosts posts={related} />
         </article>
       </main>
       <SiteFooter />

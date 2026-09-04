@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { disciplines, topics } from "@/lib/mock-data";
+import { SITE_TELEGRAM_URL, SITE_VK_URL } from "@/lib/site-contact";
 
 const footerLinks = {
   legal: [
@@ -7,8 +8,8 @@ const footerLinks = {
     { href: "/terms", label: "Условия использования" },
   ],
   social: [
-    { href: "https://t.me/ACROTIM", label: "Telegram" },
-    { href: "https://vk.com/club237106766", label: "ВКонтакте" },
+    { href: SITE_TELEGRAM_URL, label: "Telegram" },
+    { href: SITE_VK_URL, label: "ВКонтакте" },
   ],
 };
 

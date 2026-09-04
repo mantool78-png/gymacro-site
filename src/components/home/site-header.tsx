@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { disciplines, disciplineAccents } from "@/lib/mock-data";
-
-const TELEGRAM_URL = "https://t.me/ACROTIM";
+import { SITE_TELEGRAM_URL } from "@/lib/site-contact";
 
 const DISCIPLINE_LINKS = {
   acrobatic: disciplines.find((d) => d.slug === "acrobatic")?.href ?? "/disciplines/acrobatic",
@@ -77,7 +76,7 @@ export function SiteHeader() {
           <div className="flex min-w-0 items-center justify-end gap-1 sm:gap-2">
             {/* На узком экране — только иконка; от md — подпись */}
             <Link
-              href={TELEGRAM_URL}
+              href={SITE_TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Наш Telegram — открыть канал"

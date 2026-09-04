@@ -1,8 +1,7 @@
-import Link from "next/link";
+import { SITE_TELEGRAM_URL } from "@/lib/site-contact";
 import { HeroMotion } from "./hero-motion";
+import { InPageAnchor } from "./in-page-anchor";
 import { TagCloud } from "./tag-cloud";
-
-const TELEGRAM_HERO = "https://t.me/gymacro";
 
 function TelegramIcon({ className }: { className?: string }) {
   return (
@@ -32,21 +31,21 @@ export function HeroSection() {
               <span className="font-medium text-zinc-700">России</span>.
             </p>
             <div className="mx-auto mt-5 flex w-full max-w-md flex-col items-stretch gap-2.5 md:mx-0 md:max-w-none md:flex-row md:flex-wrap md:items-center">
-              <Link
+              <InPageAnchor
                 href="#feed"
                 className="inline-flex h-10 items-center justify-center rounded-2xl bg-[#0d9488] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f766e]"
               >
                 Читать последние статьи
-              </Link>
-              <Link
-                href={TELEGRAM_HERO}
+              </InPageAnchor>
+              <a
+                href={SITE_TELEGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-10 items-center justify-center gap-2 rounded-2xl border border-zinc-200/90 bg-white/90 px-5 text-sm font-semibold text-zinc-800 shadow-sm transition hover:border-violet-200 hover:bg-white"
               >
                 <TelegramIcon className="h-[16px] w-[16px] text-[#229ED9]" />
                 Наш Telegram
-              </Link>
+              </a>
             </div>
           </div>
           <div className="hidden h-[220px] lg:block xl:h-[250px]">

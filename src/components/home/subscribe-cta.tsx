@@ -1,7 +1,6 @@
 import Link from "next/link";
+import { SITE_TELEGRAM_URL } from "@/lib/site-contact";
 import { ScrollReveal } from "./scroll-reveal";
-
-const TELEGRAM_URL = "https://t.me/ACROTIM";
 
 export function SubscribeCta() {
   return (
@@ -16,7 +15,7 @@ export function SubscribeCta() {
               </p>
             </div>
             <Link
-              href={TELEGRAM_URL}
+              href={SITE_TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 shrink-0 items-center justify-center rounded-[16px] bg-white px-8 text-sm font-semibold text-[#6d28d9] shadow-lg transition hover:bg-violet-50"

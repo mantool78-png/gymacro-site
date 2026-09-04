@@ -1,5 +1,5 @@
 import { getSiteUrl, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
-import { SITE_EDITORIAL_EMAIL } from "@/lib/site-contact";
+import { SITE_EDITORIAL_EMAIL, SITE_TELEGRAM_URL, SITE_VK_URL } from "@/lib/site-contact";
 
 /** Возвращает базовые ноды графа (WebSite + Organization) для переиспользования. */
 export function getSiteGraphNodes() {
@@ -28,11 +28,7 @@ export function getSiteGraphNodes() {
         height: 32,
         caption: SITE_NAME,
       },
-      sameAs: [
-        "https://t.me/gymacro",
-        "https://t.me/ACROTIM",
-        "https://vk.com/club237106766",
-      ],
+      sameAs: [SITE_TELEGRAM_URL, SITE_VK_URL],
       availableLanguage: ["ru-RU"],
       areaServed: {
         "@type": "Country" as const,

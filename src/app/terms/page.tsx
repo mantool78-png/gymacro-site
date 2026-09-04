@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { WpStaticPage } from "@/components/legal/wp-static-page";
+import { SITE_EDITORIAL_EMAIL } from "@/lib/site-contact";
 
 export const metadata: Metadata = {
   title: "Условия использования — Gymacro",
@@ -16,6 +17,8 @@ export default function TermsPage() {
         "usloviya",
       ]}
       fallbackTitle="Условия использования"
+      fallbackHtml={`<p>Используя сайт gymacro.ru, вы соглашаетесь с этими условиями. Материалы носят информационный характер и не заменяют консультацию специалиста.</p>
+<p>По вопросам, связанным с работой сайта, пишите на <a href="mailto:${SITE_EDITORIAL_EMAIL}">${SITE_EDITORIAL_EMAIL}</a>.</p>`}
     />
   );
 }
