@@ -6,7 +6,6 @@ import { SiteFooter, SiteHeader } from "@/components/home";
 import { RelatedPosts } from "@/components/posts/related-posts";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { disciplineCardBadge } from "@/lib/mock-data";
-import { IMAGE_FEATURE_16_9 } from "@/lib/image-dimensions";
 import { rewriteStaleTelegramUrls } from "@/lib/public-html";
 import {
   decodeHtmlEntities,
