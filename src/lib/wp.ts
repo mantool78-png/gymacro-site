@@ -252,6 +252,22 @@ export function mapWpPostToArticle(post: WpPost): Article {
   };
 }
 
+/** Родительские гайды с главной «Материалы» — запасной «Читайте также», если WP не отдал related. */
+export const PARENT_GUIDE_FALLBACK: { slug: string; title: string }[] = [
+  {
+    slug: "vo-skolko-let-otdavat-rebenka-v-gimnastiku",
+    title: "Во сколько лет отдавать ребёнка в гимнастику: возраст по дисциплинам",
+  },
+  {
+    slug: "sportivnaya-hudozhestvennaya-ili-akrobatika",
+    title: "Спортивная, художественная гимнастика или акробатика: как выбрать ребёнку",
+  },
+  {
+    slug: "rastyazhka-cherez-slyozy-norma-ili-peregib",
+    title: "Растяжка через слёзы: норма или перегиб, что делать родителю",
+  },
+];
+
 /**
  * Последние посты с gymacro.ru. ISR: список обновляется не чаще чем раз в час.
  */
@@ -341,6 +357,66 @@ export async function getPostBySlug(slug: string): Promise<WpPost | null> {
   if (!Array.isArray(data) || data.length === 0) return null;
 
   return data[0] as WpPost;
+}
+
+/**
+ * Соседние материалы для блока «Читайте также»: сначала та же рубрика,
+ * затем лента главной, затем известные родительские гайды.
+ */
+export async function getRelatedPosts(
+  post: WpPost,
+  count = 3,
+): Promise<{ slug: string; title: string }[]> {
+  const seen = new Set<string>([post.slug]);
+  const out: { slug: string; title: string }[] = [];
+
+  const push = (items: { slug: string; title: string }[]) => {
+    for (const item of items) {
+      if (!item.slug || seen.has(item.slug)) continue;
+      seen.add(item.slug);
+      out.push(item);
+      if (out.length >= count) return;
+    }
+  };
+
+  const categoryIds = getCategoryTerms(post).map((c) => c.id);
+  if (categoryIds.length) {
+    try {
+      const url = new URL(`${WP_BASE}/wp-json/wp/v2/posts`);
+      url.searchParams.set("_embed", "1");
+      url.searchParams.set("per_page", String(count));
+      url.searchParams.set("exclude", String(post.id));
+      url.searchParams.set("categories", categoryIds.join(","));
+
+      const res = await fetch(url.toString(), {
+        next: { revalidate: 3600 },
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        const data: unknown = await res.json();
+        if (Array.isArray(data)) {
+          push((data as WpPost[]).map(mapWpPostToArticle));
+        }
+      }
+    } catch {
+      // дальше — лента и статический запас
+    }
+  }
+
+  if (out.length < count) {
+    try {
+      const latest = await getLatestPosts(count + 3);
+      push(latest);
+    } catch {
+      // ignore
+    }
+  }
+
+  if (out.length < count) {
+    push(PARENT_GUIDE_FALLBACK);
+  }
+
+  return out.slice(0, count);
 }
 
 /**

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/home";
+import { sanitizePublicPageHtml } from "@/lib/public-html";
 import { decodeHtmlEntities, getPageByAnySlug, stripHtml } from "@/lib/wp";
 
 function stripUnsafeFromHtml(html: string): string {
@@ -18,10 +19,10 @@ export async function WpStaticPage({ slugs, fallbackTitle, fallbackHtml }: WpSta
   const title = page
     ? decodeHtmlEntities(stripHtml(page.title?.rendered ?? "")).trim() || fallbackTitle
     : fallbackTitle;
-  const html = page
+  const rawHtml = page
     ? stripUnsafeFromHtml(page.content?.rendered ?? "")
-    : fallbackHtml ??
-      `<p>Содержимое страницы пока не заполнено.</p>`;
+    : fallbackHtml ?? `<p>Содержимое страницы пока не заполнено.</p>`;
+  const html = sanitizePublicPageHtml(rawHtml);
 
   return (
     <>
