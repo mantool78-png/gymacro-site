@@ -2,14 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { disciplineCardBadge, type Article } from "@/lib/mock-data";
 
-function formatDate(iso: string) {
-  return new Intl.DateTimeFormat("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(iso));
-}
-
 export function ArticleFeed({ articles }: { articles: Article[] }) {
   if (!articles.length) {
     return (
@@ -116,10 +108,6 @@ export function ArticleFeed({ articles }: { articles: Article[] }) {
                     </h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-500">{article.excerpt}</p>
                     <div className="mt-auto flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-zinc-100 pt-4 text-xs font-medium text-zinc-400">
-                      <time dateTime={article.date}>{formatDate(article.date)}</time>
-                      <span className="text-zinc-300" aria-hidden>
-                        ·
-                      </span>
                       <span>{article.readMinutes} мин чтения</span>
                     </div>
                   </div>

@@ -72,6 +72,8 @@ export interface WpPost {
   id: number;
   slug: string;
   date: string;
+  date_gmt?: string;
+  guid?: { rendered?: string };
   link: string;
   sticky?: boolean;
   title: WpRendered;

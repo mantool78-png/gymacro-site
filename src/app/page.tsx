@@ -16,22 +16,27 @@ import {
 import { HomeWebPageJsonLd } from "@/components/seo/home-web-page-json-ld";
 import { getLatestPostsServer, getNewsPostsServer } from "@/lib/wordpress";
 import type { Article } from "@/lib/mock-data";
-import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
+import { SITE_TITLE, SITE_DESCRIPTION, siteCanonical } from "@/lib/site";
 
 export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: siteCanonical("/"),
+  },
   keywords: [
-    "гимнастика",
+    "гимнастика для детей",
+    "гимнастика для родителей",
     "спортивная гимнастика",
     "художественная гимнастика",
     "спортивная акробатика",
     "аэробика",
     "батут",
-    "статьи для тренеров",
-    "гимнастика для детей",
+    "детская секция гимнастики",
+    "растяжка для детей",
+    "разряды по гимнастике",
   ],
 };
 

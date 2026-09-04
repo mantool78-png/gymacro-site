@@ -36,5 +36,11 @@ yarn-error.log*
 .env*
 !.env.example
 
+# локальный конфиг деплоя (секреты Beget)
+deploy.env
+
+# память Teya / Excalibur (статьи, SSH-скрипты, обложки)
+teya-memory/
+
 # vercel
 .vercel

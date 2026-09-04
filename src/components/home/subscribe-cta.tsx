@@ -9,9 +9,9 @@ export function SubscribeCta() {
         <div className="mx-auto max-w-6xl overflow-hidden rounded-[18px] border border-[var(--color-border-subtle)] bg-gradient-to-r from-[#6d28d9] to-[#5b21b6] px-6 py-10 text-center shadow-[var(--shadow-hover)] md:px-12 md:text-left">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 md:mx-0 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="font-display text-xl font-bold text-white md:text-2xl">Не пропускайте новые разборы</h2>
+              <h2 className="font-display text-xl font-bold text-white md:text-2xl">Короткие ответы для родителей</h2>
               <p className="mt-2 text-sm leading-relaxed text-violet-100 md:text-base">
-                Короткие дайджесты в Telegram: техника, подготовка к стартам и материалы для родителей.
+                Дайджесты в Telegram: что происходит на тренировках, подготовка к стартам и спокойная поддержка ребёнка.
               </p>
             </div>
             <Link

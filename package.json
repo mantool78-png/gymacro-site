@@ -6,9 +6,7 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build && node scripts/prepare-standalone.js",
     "deploy:pack": "npm run build && tar -caf gymacro-deploy.tgz server.js package.json .htaccess .next/standalone",
-    "deploy:upload": "scp \"D:/fedor/Documents/gymacro-site/gymacro-deploy.tgz\" mantoos7_1@mantoos7.beget.tech:~/",
-    "deploy:remote": "ssh mantoos7_1@mantoos7.beget.tech \"tar -xzf ~/gymacro-deploy.tgz -C ~/mantoos7.beget.tech/public_html && mkdir -p ~/mantoos7.beget.tech/public_html/tmp && touch ~/mantoos7.beget.tech/public_html/tmp/restart.txt\"",
-    "deploy:beget": "npm run deploy:pack && npm run deploy:upload && npm run deploy:remote",
+    "deploy:beget": "node scripts/deploy-beget.cjs",
     "start": "node server.js",
     "lint": "eslint",
     "analyze": "cross-env ANALYZE=true next build"

@@ -7,6 +7,7 @@ import { RelatedPosts } from "@/components/posts/related-posts";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { disciplineCardBadge } from "@/lib/mock-data";
 import { rewriteStaleTelegramUrls } from "@/lib/public-html";
+import { getSiteUrl } from "@/lib/site";
 import {
   decodeHtmlEntities,
   estimateReadMinutes,
@@ -29,20 +30,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) {
     return { title: "Статья не найдена" };
   }
+  const baseUrl = getSiteUrl();
+  const canonical = `${baseUrl}/posts/${slug}`;
   const title = decodeHtmlEntities(stripHtml(post.title?.rendered ?? "")).trim();
   const excerptRaw = decodeHtmlEntities(stripHtml(post.excerpt?.rendered ?? "")).trim();
-  const excerpt = excerptRaw.slice(0, 160);
+  const excerpt = excerptRaw.slice(0, 155);
   const description =
     excerpt ||
     (title
       ? `${title} — материал на Gymacro: гимнастика, акробатика, материалы для тренеров и родителей.`.slice(
           0,
-          160,
+          155,
         )
       : undefined);
+  const featuredImage = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   return {
     title: title ? `${title} — Gymacro` : "Gymacro",
     description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      url: canonical,
+      title: title ? `${title} — Gymacro` : "Gymacro",
+      description: description ?? undefined,
+      locale: "ru_RU",
+      siteName: "Gymacro",
+      ...(featuredImage ? { images: [{ url: featuredImage }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title ? `${title} — Gymacro` : "Gymacro",
+      description: description ?? undefined,
+      ...(featuredImage ? { images: [featuredImage] } : {}),
+    },
   };
 }
 

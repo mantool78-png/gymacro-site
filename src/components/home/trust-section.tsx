@@ -21,10 +21,10 @@ export function TrustSection() {
       <div className="mx-auto max-w-6xl rounded-[18px] border border-[var(--color-border-subtle)] bg-gradient-to-br from-[#fafafa] to-white px-6 py-10 shadow-[var(--shadow-soft)] md:px-12 md:py-12">
         <ScrollReveal>
           <h2 className="font-display max-w-2xl text-2xl font-bold leading-snug text-[var(--color-ink)] md:text-3xl">
-            Мы собираем знания для большой гимнастической семьи
+            Ребёнок занимается гимнастикой — вам нужны понятные ответы
           </h2>
           <p className="mt-3 max-w-2xl text-[var(--color-ink-muted)] leading-relaxed">
-            Спортсмены, тренеры, родители и те, кто просто любит гимнастику — всем нужны ясные ответы без шума.
+            Мы собираем проверенные знания для родителей: без паники, жаргона и мифов из раздевалки.
           </p>
         </ScrollReveal>
 

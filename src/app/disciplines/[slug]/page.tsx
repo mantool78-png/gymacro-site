@@ -25,6 +25,7 @@ import {
   getFunByDiscipline,
 } from "@/lib/wp";
 import { calendarYearForSite, getSportgymCalendarEventsSafe } from "@/lib/sportgym-calendar";
+import { getSiteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -62,9 +63,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const discipline = disciplines.find((d) => d.slug === slug);
   if (!discipline) return { title: "Раздел не найден" };
+  const canonical = `${getSiteUrl()}/disciplines/${slug}`;
   return {
     title: `${discipline.name} — Gymacro`,
     description: `Статьи, новости, соревнования и материалы по дисциплине «${discipline.name}»: советы для тренеров, спортсменов и родителей. Gymacro.`,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      url: canonical,
+      title: `${discipline.name} — Gymacro`,
+      locale: "ru_RU",
+      siteName: "Gymacro",
+    },
   };
 }
 

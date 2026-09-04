@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { SiteFooter, SiteHeader } from "@/components/home";
 import { IMAGE_CARD_16_10 } from "@/lib/image-dimensions";
 import { getLatestPostsByCategorySlug, getLatestPostsByCategoryId } from "@/lib/wp";
+import { getSiteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -59,9 +60,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const title = TOPIC_TITLES[slug];
   if (!title) return { title: "Тема не найдена" };
+  const canonical = `${getSiteUrl()}/topics/${slug}`;
   return {
     title: `${title} — Gymacro`,
     description: `Подборка статей по теме «${title}»: практика зала, безопасность и подготовка. Gymacro.`,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      url: canonical,
+      title: `${title} — Gymacro`,
+      locale: "ru_RU",
+      siteName: "Gymacro",
+    },
   };
 }
 

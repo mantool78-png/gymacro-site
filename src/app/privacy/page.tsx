@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { WpStaticPage } from "@/components/legal/wp-static-page";
+import { siteCanonical } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Политика конфиденциальности — Gymacro",
   description: "Политика конфиденциальности сайта Gymacro: обработка данных и использование сервисов.",
+  alternates: {
+    canonical: siteCanonical("/privacy"),
+  },
 };
 
 export default function PrivacyPage() {

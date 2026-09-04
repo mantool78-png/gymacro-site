@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/home";
+import { siteCanonical } from "@/lib/site";
 import {
   SITE_EDITORIAL_EMAIL,
   SITE_TELEGRAM_URL,
@@ -10,7 +11,10 @@ import {
 export const metadata: Metadata = {
   title: "Связаться — Gymacro",
   description:
-    "Как связаться с редакцией медиа Gymacro: электронная почта и официальный Telegram-канал.",
+    "Как связаться с редакцией медиа Gymacro: электронная почта, Telegram и сообщество ВКонтакте.",
+  alternates: {
+    canonical: siteCanonical("/contact"),
+  },
 };
 
 export default function ContactPage() {
